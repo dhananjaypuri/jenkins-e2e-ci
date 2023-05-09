@@ -63,6 +63,7 @@ pipeline {
             environment {
                 IMG_NAME = "jenkins-python-ec2"
                 NEW_IMG_NAME = "${IMG_NAME}:${BUILD_ID}"
+                NEW_REPO_NAME = "argocd-k8-manifest"
             }
             steps{
                 withCredentials([usernamePassword(credentialsId: 'git_cred', passwordVariable: 'GIT_PASSWD', usernameVariable: 'USER_NAME')]) {
@@ -74,7 +75,7 @@ pipeline {
                     cat manifests/deploy.yml
                     git add manifests/deploy.yml
                     git commit -m "Updating K8 manifest file with build : ${BUILD_ID}"
-                    git push https://${GIT_PASSWD}@github.com/${USER_NAME}/dhananjaypuri/argocd-k8-manifest.git 
+                    git push https://${GIT_PASSWD}@github.com/${USER_NAME}/${NEW_REPO_NAME}.git HEAD:master
                     '''
                 }
                 echo "This is last stage"
