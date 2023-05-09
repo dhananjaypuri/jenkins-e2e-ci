@@ -5,6 +5,8 @@ pipeline {
 
             steps{
                 echo "This is code checkout stage"
+                git 'https://github.com/dhananjaypuri/jenkins-e2e-ci.git'
+                sh 'ls'
             }
             
         }
