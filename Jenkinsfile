@@ -51,7 +51,9 @@ pipeline {
         }
 
         stage('Checkout argocd-k8-manifest'){
-            
+            environment {
+                IMG_NAME = "dhananjaypuri/jenkins-python-ec2"
+            }
             steps{
                 echo "Getting code from GIT"
                 git 'https://github.com/dhananjaypuri/argocd-k8-manifest.git'
@@ -62,6 +64,14 @@ pipeline {
         stage('Push Code to K8 manifest repo'){
             
             steps{
+                withCredentials([usernamePassword(credentialsId: 'git_cred', passwordVariable: 'GIT_PASSWD', usernameVariable: 'USER_NAME')]) {
+                    sh '''
+                    git config --global user.email "dhananjay.puri@gmail.com"
+                    git config --global user.name "dhananjaypuri"
+                    cd manifests/
+                    sed 's/jenkins-python-ec2.*/${IMG_NAME}:${BUILD_ID}/g' deploy.yml
+                    '''
+                }
                 echo "This is last stage"
             }
         }
