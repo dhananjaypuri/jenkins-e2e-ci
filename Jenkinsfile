@@ -19,7 +19,7 @@ pipeline {
 
             steps{
                 echo "This is image build stage"
-                echo $IMG_NAME
+                sh 'echo $IMG_NAME'
             }
             
         }
