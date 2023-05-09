@@ -1,11 +1,11 @@
 pipeline {
-    agent any
+    agent none
     stages {
         stage('Code Checkout'){
 
             steps{
                 echo "This is code checkout stage"
-                git branch: 'master', url: 'https://github.com/dhananjaypuri/jenkins-e2e-ci.git' 
+                git 'https://github.com/dhananjaypuri/jenkins-e2e-ci.git'
                 sh 'ls'
             }
             
@@ -13,8 +13,13 @@ pipeline {
 
         stage('Image Build Stage'){
 
+            environment {
+                IMG_NAME = "dhananjaypuri/dhananjaypuri/jenkins-python-ec2"
+            }
+
             steps{
                 echo "This is image build stage"
+                echo $IMG_NAME
             }
             
         }
