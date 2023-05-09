@@ -19,7 +19,11 @@ pipeline {
 
             steps{
                 echo "This is image build stage"
-                sh 'echo ${IMG_NAME}'
+                sh '''
+                    echo ${IMG_NAME}
+                    ls -ltr
+                    cat Jenkinsfile
+                '''
             }
             
         }
