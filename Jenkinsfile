@@ -69,7 +69,7 @@ pipeline {
                     git config --global user.email "dhananjay.puri@gmail.com"
                     git config --global user.name "dhananjaypuri"
                     cd manifests/
-                    sed -i "s/jenkins-python-ec2.*/${IMG_NAME}:${BUILD_ID}/g" deploy.yml
+                    sed -i 's/jenkins-python-ec2.*/"${IMG_NAME}:${BUILD_ID}"/g' deploy.yml
                     cat deploy.yml
                     '''
                 }
