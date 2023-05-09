@@ -36,7 +36,7 @@ pipeline {
 
             steps{
                 echo "This is image push stage"
-                echo ${DOCKER_CREDENTIALS}
+                echo "${DOCKER_CREDENTIALS}"
             }
             
         }
