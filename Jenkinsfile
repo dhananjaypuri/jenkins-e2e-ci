@@ -14,12 +14,12 @@ pipeline {
         stage('Image Build Stage'){
 
             environment {
-                IMG_NAME = "dhananjaypuri/dhananjaypuri/jenkins-python-ec2"
+                IMG_NAME = "dhananjaypuri/jenkins-python-ec2"
             }
 
             steps{
                 echo "This is image build stage"
-                sh 'echo $IMG_NAME'
+                sh 'echo ${IMG_NAME}'
             }
             
         }
