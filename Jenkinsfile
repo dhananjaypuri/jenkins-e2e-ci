@@ -22,7 +22,7 @@ pipeline {
                 sh '''
                     echo ${IMG_NAME}
                     ls -ltr
-                    cat Jenkinsfile
+                    //cat Jenkinsfile
                     echo ${BUILD_ID}
                 '''
             }
