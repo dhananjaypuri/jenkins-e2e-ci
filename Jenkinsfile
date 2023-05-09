@@ -50,6 +50,15 @@ pipeline {
             
         }
 
+        stage('Checkout argocd-k8-manifest'){
+            
+            steps{
+                echo "Getting code from GIT"
+                git 'https://github.com/dhananjaypuri/argocd-k8-manifest.git'
+                sh 'ls'
+            }
+        }
+
         stage('Push Code to K8 manifest repo'){
             
             steps{
