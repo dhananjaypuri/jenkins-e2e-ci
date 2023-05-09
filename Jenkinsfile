@@ -32,11 +32,13 @@ pipeline {
 
             environment {
                 DOCKER_CREDENTIALS = credentials('docker_cred')
+                DOCKER_USER_NAME = "dhananjaypuri"
             }
 
             steps{
                 echo "This is image push stage"
-                echo "${DOCKER_CREDENTIALS}"
+                sh 'echo "${DOCKER_CREDENTIALS}" | docker login -u ${DOCKER_USER_NAME} --password-stdin'
+                echo "Login Done"
             }
             
         }
