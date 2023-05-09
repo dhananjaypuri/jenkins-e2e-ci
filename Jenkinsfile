@@ -20,9 +20,9 @@ pipeline {
             steps{
                 echo "This is image build stage"
                 sh '''
-                    echo ${IMG_NAME}
                     ls -ltr
-                    echo ${BUILD_ID}
+                    docker build -t ${IMG_NAME}:${BUILD_ID} .
+                    docker image ls
                 '''
             }
             
