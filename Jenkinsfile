@@ -33,13 +33,14 @@ pipeline {
             environment {
                 DOCKER_CREDENTIALS = credentials('docker_cred')
                 DOCKER_USER_NAME = "dhananjaypuri"
+                IMG_NAME = "dhananjaypuri/jenkins-python-ec2"
             }
 
             steps{
                 echo "This is image push stage"
                 sh 'echo "${DOCKER_CREDENTIALS}" | docker login -u ${DOCKER_USER_NAME} --password-stdin'
-                echo "Login Done"
-            }
+                sh 'docker image push ${IMG_NAME}:${BUILD_ID}'
+                }
             
         }
 
