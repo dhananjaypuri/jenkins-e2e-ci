@@ -19,9 +19,12 @@ pipeline {
 
             steps{
                 echo "This is image build stage"
+
                 sh '''
                     ls -ltr
                     docker build -t ${IMG_NAME}:${BUILD_ID} .
+                    echo "Cleaning Up Images"
+                    docker image rmi -f $(docker images | grep jenkins-python-ec2 | awk '{print $3}')
                     docker image ls
                 '''
             }
@@ -36,11 +39,12 @@ pipeline {
                 IMG_NAME = "dhananjaypuri/jenkins-python-ec2"
             }
 
-            steps{
+            steps
+            {
                 echo "This is image push stage"
                 sh 'echo "${DOCKER_CREDENTIALS}" | docker login -u ${DOCKER_USER_NAME} --password-stdin'
                 sh 'docker image push ${IMG_NAME}:${BUILD_ID}'
-                }
+            }
             
         }
 
