@@ -30,8 +30,13 @@ pipeline {
 
         stage('Image Push Stage'){
 
+            environment {
+                DOCKER_CREDENTIALS = credentials('docker_cred')
+            }
+
             steps{
                 echo "This is image push stage"
+                echo ${DOCKER_CREDENTIALS}
             }
             
         }
