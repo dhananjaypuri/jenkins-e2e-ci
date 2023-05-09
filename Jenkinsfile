@@ -69,10 +69,12 @@ pipeline {
                     sh '''
                     git config --global user.email "dhananjay.puri@gmail.com"
                     git config --global user.name "dhananjaypuri"
-                    cd manifests/
                     echo "${NEW_IMG_NAME}"
-                    sed -i "s/jenkins-python-ec2.*/${NEW_IMG_NAME}/g" deploy.yml
-                    cat deploy.yml
+                    sed -i "s/jenkins-python-ec2.*/${NEW_IMG_NAME}/g" manifests/deploy.yml
+                    cat manifests/deploy.yml
+                    git add manifests/deploy.yml
+                    git commit -m "Updating K8 manifest file with build : ${BUILD_ID}"
+                    git push https://${GIT_PASSWD}@github.com/${USER_NAME}/dhananjaypuri/argocd-k8-manifest.git 
                     '''
                 }
                 echo "This is last stage"
