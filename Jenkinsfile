@@ -62,6 +62,7 @@ pipeline {
         stage('Push Code to K8 manifest repo'){
             environment {
                 IMG_NAME = "dhananjaypuri/jenkins-python-ec2"
+                NEW_IMG_NAME = "${IMG_NAME}:${BUILD_ID}"
             }
             steps{
                 withCredentials([usernamePassword(credentialsId: 'git_cred', passwordVariable: 'GIT_PASSWD', usernameVariable: 'USER_NAME')]) {
@@ -69,7 +70,8 @@ pipeline {
                     git config --global user.email "dhananjay.puri@gmail.com"
                     git config --global user.name "dhananjaypuri"
                     cd manifests/
-                    sed -i 's/jenkins-python-ec2.*/"${IMG_NAME}:${BUILD_ID}"/g' deploy.yml
+                    echo "${NEW_IMG_NAME}"
+                    sed -i "s/jenkins-python-ec2.*/${NEW_IMG_NAME}/g" deploy.yml
                     cat deploy.yml
                     '''
                 }
