@@ -61,7 +61,7 @@ pipeline {
 
         stage('Push Code to K8 manifest repo'){
             environment {
-                IMG_NAME = "dhananjaypuri/jenkins-python-ec2"
+                IMG_NAME = "jenkins-python-ec2"
                 NEW_IMG_NAME = "${IMG_NAME}:${BUILD_ID}"
             }
             steps{
